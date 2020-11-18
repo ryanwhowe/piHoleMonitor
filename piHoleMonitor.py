@@ -80,11 +80,12 @@ def buildContent(data):
     divider = "".join(['-']*len(hostname))
     result.insert(0, centeredRow(hostname))
     result.insert(1, centeredRow(divider))
-    result.insert(2, formatRow("up: {0} days".format(data['days_uptime'])))
-    result.insert(3, formatRow(
+    result.insert(2, centeredRow(data['ip']))
+    result.insert(3, formatRow("up: {0} days".format(data['days_uptime'])))
+    result.insert(4, formatRow(
         "updated: {0} days".format(data['last_update'])))
-    result.insert(4, formatRow("Blocked: {0:.1%}".format(data['blocked'])))
-    result.insert(5, centeredRow(divider))
+    result.insert(5, formatRow("Blocked: {0:.1%}".format(data['blocked'])))
+    result.insert(6, centeredRow(divider))
     return result
 
 
@@ -96,7 +97,7 @@ def updateDisplay(display, position):
 def updateData():
     piHole = getPiHoleApi()
     return {'host': getHost(), 'days_uptime': getDaysUptime(),
-            "blocked": piHole['blocked'], "last_update": piHole['last_update']}
+            "blocked": piHole['blocked'], "last_update": piHole['last_update'], "ip": getIp()}
 
 
 data = updateData()
